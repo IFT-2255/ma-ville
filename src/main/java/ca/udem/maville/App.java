@@ -7,14 +7,11 @@ import java.util.Map;
 
 public class App {
     public static void main(String[] args) {
+        int port = Integer.parseInt(
+                System.getenv().getOrDefault("PORT", "7000")
+        );
         Javalin app = Javalin.create(config -> {
             config.staticFiles.add("/public");
-        }).start(7000);
-
-        app.get("/api/hello_world", context -> {
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Hello from the backend!");
-            context.json(response);
-        });
+        }).start("0.0.0.0", port);
     }
 }
